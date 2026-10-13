@@ -1,0 +1,768 @@
+{
+  "info": {
+    "_postman_id": "d4fafe9f-9691-4ffa-89fe-b774d5568be2",
+    "name": "API Apartamentos",
+    "description": "Pruebas de la API REST de Apartamentos (renta de pisos y habitaciones). Ejecutar en orden.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Clientes",
+      "item": [
+        {
+          "name": "Crear cliente propietario (id 1)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/clientes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "clientes"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"PROPIETARIO\",\n  \"nombres\": \"Laura\",\n  \"apellidos\": \"Méndez Ruiz\",\n  \"email\": \"laura.mendez@correo.com\",\n  \"telefono\": \"2221234567\",\n  \"fechaNacimiento\": \"1990-05-14\",\n  \"ine\": \"MERL900514MPL\",\n  \"direccion\": \"Calle 5 de Mayo 210, Puebla\",\n  \"estatus\": \"ACTIVO\",\n  \"password\": \"Secreta123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Crear cliente huésped (id 2)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/clientes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "clientes"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"CLIENTE\",\n  \"nombres\": \"Carlos\",\n  \"apellidos\": \"Ramírez Soto\",\n  \"email\": \"carlos.ramirez@correo.com\",\n  \"telefono\": \"5512345678\",\n  \"estatus\": \"ACTIVO\",\n  \"password\": \"Huesped123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Listar clientes (el password nunca se muestra)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/clientes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "clientes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cliente por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/clientes/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "clientes",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cliente que no existe (debe responder 404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/clientes/999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "clientes",
+                "999"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Actualizar cliente (el password es obligatorio en el cuerpo)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/clientes/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "clientes",
+                "2"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"CLIENTE\",\n  \"nombres\": \"Carlos Alberto\",\n  \"apellidos\": \"Ramírez Soto\",\n  \"email\": \"carlos.ramirez@correo.com\",\n  \"telefono\": \"5598765432\",\n  \"estatus\": \"ACTIVO\",\n  \"password\": \"Huesped123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Propiedades",
+      "item": [
+        {
+          "name": "Crear propiedad (propietario = cliente 1)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/propiedades",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "propiedades"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propietario\": { \"id\": 1 },\n  \"tipo\": \"Departamento\",\n  \"titulo\": \"Departamento céntrico con terraza\",\n  \"descripcion\": \"Departamento amueblado a 5 minutos del zócalo, con terraza y estacionamiento.\",\n  \"direccion\": \"Av. Reforma 501, Centro\",\n  \"ciudad\": \"Puebla\",\n  \"estadoFederativo\": \"Puebla\",\n  \"codigoPostal\": \"72000\",\n  \"pais\": \"México\",\n  \"latitud\": 19.0433,\n  \"longitud\": -98.1981,\n  \"precioNoche\": 1200.00,\n  \"capacidad\": 4,\n  \"numHabitaciones\": 2,\n  \"numBanos\": 1,\n  \"metrosCuadrados\": 85,\n  \"comodidades\": \"WiFi, cocina equipada, terraza, estacionamiento\",\n  \"reglas\": \"No fumar, no mascotas, silencio después de las 22:00\",\n  \"estado\": \"DISPONIBLE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Propietario inexistente (debe responder 400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/propiedades",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "propiedades"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propietario\": { \"id\": 999 },\n  \"tipo\": \"Casa\", \"titulo\": \"Casa de prueba\", \"descripcion\": \"Prueba\",\n  \"direccion\": \"Calle 1\", \"ciudad\": \"Puebla\", \"estadoFederativo\": \"Puebla\",\n  \"codigoPostal\": \"72000\", \"pais\": \"México\", \"latitud\": 19.0, \"longitud\": -98.2,\n  \"precioNoche\": 900, \"capacidad\": 2, \"numHabitaciones\": 1, \"numBanos\": 1, \"metrosCuadrados\": 50\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Listar propiedades",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/propiedades",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "propiedades"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Propiedad por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/propiedades/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "propiedades",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "ACTIVIDAD: propiedades por tipo",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/propiedades/tipo/departamento",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "propiedades",
+                "tipo",
+                "departamento"
+              ]
+            }
+          }
+        },
+        {
+          "name": "ACTIVIDAD: propiedades de un propietario",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/propiedades/propietario/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "propiedades",
+                "propietario",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Imágenes y Unidades",
+      "item": [
+        {
+          "name": "Agregar imagen a la propiedad 1",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/propiedad-imagenes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "propiedad-imagenes"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propiedad\": { \"idPropiedad\": 1 },\n  \"url\": \"https://ejemplo.com/imagenes/departamento-centro-1.jpg\",\n  \"descripcion\": \"Vista de la sala y la terraza\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Imágenes de la propiedad 1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/propiedad-imagenes/propiedad/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "propiedad-imagenes",
+                "propiedad",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Crear unidad rentable en la propiedad 1",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/unidades",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "unidades"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propiedad\": { \"idPropiedad\": 1 },\n  \"nombre\": \"Departamento completo\",\n  \"tipo\": \"Departamento\",\n  \"capacidad\": 4,\n  \"precioNoche\": 1200.00,\n  \"estado\": \"DISPONIBLE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Unidades de la propiedad 1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/unidades/propiedad/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "unidades",
+                "propiedad",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Disponibilidad",
+      "item": [
+        {
+          "name": "Registrar disponibilidad / precio especial de la unidad 1",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/disponibilidades",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "disponibilidades"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"unidad\": { \"idUnidad\": 1 },\n  \"fechaInicio\": \"2026-12-20T15:00:00\",\n  \"fechaFin\": \"2027-01-05T12:00:00\",\n  \"disponible\": true,\n  \"precioEspecial\": 1500.00\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Disponibilidad de la unidad 1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/disponibilidades/unidad/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "disponibilidades",
+                "unidad",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reservas",
+      "item": [
+        {
+          "name": "Crear reserva (importeTotal se calcula: 3 noches x 1200 = 3600)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservas"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"unidad\": { \"idUnidad\": 1 },\n  \"cliente\": { \"id\": 2 },\n  \"fechaEntrada\": \"2026-11-10T15:00:00\",\n  \"fechaSalida\": \"2026-11-13T12:00:00\",\n  \"estado\": \"CONFIRMADA\",\n  \"comentario\": \"Llegamos en la tarde\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Reserva que se cruza con la anterior (debe responder 400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservas"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"unidad\": { \"idUnidad\": 1 },\n  \"cliente\": { \"id\": 2 },\n  \"fechaEntrada\": \"2026-11-12T15:00:00\",\n  \"fechaSalida\": \"2026-11-14T12:00:00\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Listar reservas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Reserva por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservas/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservas",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Pagos",
+      "item": [
+        {
+          "name": "Registrar pago de la reserva 1 (importe y referencia los pone el servidor)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/pagos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "pagos"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reserva\": { \"idReservacion\": 1 },\n  \"fechaVencimiento\": \"2026-11-05\",\n  \"metodo\": \"TRANSFERENCIA\",\n  \"estado\": \"PENDIENTE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Pagos de la reserva 1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/pagos/reserva/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "pagos",
+                "reserva",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Confirmar pago",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/pagos/1/confirmar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "pagos",
+                "1",
+                "confirmar"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Reembolsar pago",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/pagos/1/reembolsar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "pagos",
+                "1",
+                "reembolsar"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reseñas y Notificaciones",
+      "item": [
+        {
+          "name": "Crear reseña de la reserva 1",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/resenas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "resenas"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reserva\": { \"idReservacion\": 1 },\n  \"cliente\": { \"id\": 2 },\n  \"calificacionGeneral\": 5,\n  \"calificacionComunicacion\": 4,\n  \"comentario\": \"Excelente ubicación y muy limpio.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Reseñas de la reserva 1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/resenas/reserva/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "resenas",
+                "reserva",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Enviar notificación del cliente 1 al cliente 2",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/notificaciones",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "notificaciones"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"remitente\": { \"id\": 1 },\n  \"destinatario\": { \"id\": 2 },\n  \"asunto\": \"Confirmación de reserva\",\n  \"mensaje\": \"Tu reserva del 10 al 13 de noviembre está confirmada. ¡Te esperamos!\",\n  \"estado\": \"NO_LEIDA\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Notificaciones del cliente 2",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/notificaciones/destinatario/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "notificaciones",
+                "destinatario",
+                "2"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000"
+    }
+  ]
+}

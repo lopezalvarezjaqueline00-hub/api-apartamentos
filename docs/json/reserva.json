@@ -1,0 +1,8 @@
+{
+  "unidad": { "idUnidad": 1 },
+  "cliente": { "id": 2 },
+  "fechaEntrada": "2026-11-10T15:00:00",
+  "fechaSalida": "2026-11-13T12:00:00",
+  "estado": "CONFIRMADA",
+  "comentario": "Llegamos en la tarde"
+}

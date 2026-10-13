@@ -1,0 +1,8 @@
+{
+  "propiedad": { "idPropiedad": 1 },
+  "nombre": "Departamento completo",
+  "tipo": "Departamento",
+  "capacidad": 4,
+  "precioNoche": 1200.00,
+  "estado": "DISPONIBLE"
+}

@@ -1,0 +1,170 @@
+### =========================================================
+### API Apartamentos - pruebas con la extensión REST Client de VS Code
+### 1) Inicia la app:  .\mvnw.cmd spring-boot:run   (MySQL encendido)
+### 2) Da clic en "Send Request" sobre cada petición, en orden.
+### Los IDs suponen una base de datos vacía; si no, cámbialos por los que devuelva cada POST.
+### =========================================================
+
+@host = http://localhost:8000
+
+### ---------------- CLIENTES ----------------
+
+### Crear cliente propietario (id 1)
+POST {{host}}/api/clientes
+Content-Type: application/json
+
+< ./json/cliente.json
+
+### Crear cliente huésped (id 2)
+POST {{host}}/api/clientes
+Content-Type: application/json
+
+< ./json/cliente-huesped.json
+
+### Listar clientes (el password nunca se muestra)
+GET {{host}}/api/clientes
+
+### Cliente por ID
+GET {{host}}/api/clientes/1
+
+### Cliente que no existe (debe responder 404)
+GET {{host}}/api/clientes/999
+
+### Actualizar cliente (el password es obligatorio en el cuerpo)
+PUT {{host}}/api/clientes/2
+Content-Type: application/json
+
+{
+  "tipo": "CLIENTE",
+  "nombres": "Carlos Alberto",
+  "apellidos": "Ramírez Soto",
+  "email": "carlos.ramirez@correo.com",
+  "telefono": "5598765432",
+  "estatus": "ACTIVO",
+  "password": "Huesped123"
+}
+
+### ---------------- PROPIEDADES ----------------
+
+### Crear propiedad (propietario = cliente 1)
+POST {{host}}/api/propiedades
+Content-Type: application/json
+
+< ./json/propiedad.json
+
+### Propietario inexistente (debe responder 400)
+POST {{host}}/api/propiedades
+Content-Type: application/json
+
+{
+  "propietario": { "id": 999 },
+  "tipo": "Casa", "titulo": "Casa de prueba", "descripcion": "Prueba",
+  "direccion": "Calle 1", "ciudad": "Puebla", "estadoFederativo": "Puebla",
+  "codigoPostal": "72000", "pais": "México", "latitud": 19.0, "longitud": -98.2,
+  "precioNoche": 900, "capacidad": 2, "numHabitaciones": 1, "numBanos": 1, "metrosCuadrados": 50
+}
+
+### Listar propiedades
+GET {{host}}/api/propiedades
+
+### Propiedad por ID
+GET {{host}}/api/propiedades/1
+
+### ACTIVIDAD: propiedades por tipo
+GET {{host}}/api/propiedades/tipo/departamento
+
+### ACTIVIDAD: propiedades de un propietario
+GET {{host}}/api/propiedades/propietario/1
+
+### ---------------- IMÁGENES Y UNIDADES ----------------
+
+### Agregar imagen a la propiedad 1
+POST {{host}}/api/propiedad-imagenes
+Content-Type: application/json
+
+< ./json/propiedad-imagen.json
+
+### Imágenes de la propiedad 1
+GET {{host}}/api/propiedad-imagenes/propiedad/1
+
+### Crear unidad rentable en la propiedad 1
+POST {{host}}/api/unidades
+Content-Type: application/json
+
+< ./json/unidad-rentable.json
+
+### Unidades de la propiedad 1
+GET {{host}}/api/unidades/propiedad/1
+
+### ---------------- DISPONIBILIDAD ----------------
+
+### Registrar disponibilidad / precio especial de la unidad 1
+POST {{host}}/api/disponibilidades
+Content-Type: application/json
+
+< ./json/disponibilidad.json
+
+### Disponibilidad de la unidad 1
+GET {{host}}/api/disponibilidades/unidad/1
+
+### ---------------- RESERVAS ----------------
+
+### Crear reserva (importeTotal se calcula: 3 noches x 1200 = 3600)
+POST {{host}}/api/reservas
+Content-Type: application/json
+
+< ./json/reserva.json
+
+### Reserva que se cruza con la anterior (debe responder 400)
+POST {{host}}/api/reservas
+Content-Type: application/json
+
+{
+  "unidad": { "idUnidad": 1 },
+  "cliente": { "id": 2 },
+  "fechaEntrada": "2026-11-12T15:00:00",
+  "fechaSalida": "2026-11-14T12:00:00"
+}
+
+### Listar reservas
+GET {{host}}/api/reservas
+
+### Reserva por ID
+GET {{host}}/api/reservas/1
+
+### ---------------- PAGOS ----------------
+
+### Registrar pago de la reserva 1 (importe y referencia los pone el servidor)
+POST {{host}}/api/pagos
+Content-Type: application/json
+
+< ./json/pago.json
+
+### Pagos de la reserva 1
+GET {{host}}/api/pagos/reserva/1
+
+### Confirmar pago
+POST {{host}}/api/pagos/1/confirmar
+
+### Reembolsar pago
+POST {{host}}/api/pagos/1/reembolsar
+
+### ---------------- RESEÑAS Y NOTIFICACIONES ----------------
+
+### Crear reseña de la reserva 1
+POST {{host}}/api/resenas
+Content-Type: application/json
+
+< ./json/resena.json
+
+### Reseñas de la reserva 1
+GET {{host}}/api/resenas/reserva/1
+
+### Enviar notificación del cliente 1 al cliente 2
+POST {{host}}/api/notificaciones
+Content-Type: application/json
+
+< ./json/notificacion.json
+
+### Notificaciones del cliente 2
+GET {{host}}/api/notificaciones/destinatario/2

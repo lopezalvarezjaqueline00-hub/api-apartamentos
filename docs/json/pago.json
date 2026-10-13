@@ -1,0 +1,6 @@
+{
+  "reserva": { "idReservacion": 1 },
+  "fechaVencimiento": "2026-11-05",
+  "metodo": "TRANSFERENCIA",
+  "estado": "PENDIENTE"
+}

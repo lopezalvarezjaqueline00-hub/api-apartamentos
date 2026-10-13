@@ -1,0 +1,21 @@
+{
+  "propietario": { "id": 1 },
+  "tipo": "Departamento",
+  "titulo": "Departamento céntrico con terraza",
+  "descripcion": "Departamento amueblado a 5 minutos del zócalo, con terraza y estacionamiento.",
+  "direccion": "Av. Reforma 501, Centro",
+  "ciudad": "Puebla",
+  "estadoFederativo": "Puebla",
+  "codigoPostal": "72000",
+  "pais": "México",
+  "latitud": 19.0433,
+  "longitud": -98.1981,
+  "precioNoche": 1200.00,
+  "capacidad": 4,
+  "numHabitaciones": 2,
+  "numBanos": 1,
+  "metrosCuadrados": 85,
+  "comodidades": "WiFi, cocina equipada, terraza, estacionamiento",
+  "reglas": "No fumar, no mascotas, silencio después de las 22:00",
+  "estado": "DISPONIBLE"
+}

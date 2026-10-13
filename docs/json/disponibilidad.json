@@ -1,0 +1,7 @@
+{
+  "unidad": { "idUnidad": 1 },
+  "fechaInicio": "2026-12-20T15:00:00",
+  "fechaFin": "2027-01-05T12:00:00",
+  "disponible": true,
+  "precioEspecial": 1500.00
+}

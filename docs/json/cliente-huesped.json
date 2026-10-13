@@ -1,0 +1,9 @@
+{
+  "tipo": "CLIENTE",
+  "nombres": "Carlos",
+  "apellidos": "Ramírez Soto",
+  "email": "carlos.ramirez@correo.com",
+  "telefono": "5512345678",
+  "estatus": "ACTIVO",
+  "password": "Huesped123"
+}

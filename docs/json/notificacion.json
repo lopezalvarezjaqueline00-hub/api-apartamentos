@@ -1,0 +1,7 @@
+{
+  "remitente": { "id": 1 },
+  "destinatario": { "id": 2 },
+  "asunto": "Confirmación de reserva",
+  "mensaje": "Tu reserva del 10 al 13 de noviembre está confirmada. ¡Te esperamos!",
+  "estado": "NO_LEIDA"
+}

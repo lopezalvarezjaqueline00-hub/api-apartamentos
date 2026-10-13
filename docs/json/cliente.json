@@ -1,0 +1,12 @@
+{
+  "tipo": "PROPIETARIO",
+  "nombres": "Laura",
+  "apellidos": "Méndez Ruiz",
+  "email": "laura.mendez@correo.com",
+  "telefono": "2221234567",
+  "fechaNacimiento": "1990-05-14",
+  "ine": "MERL900514MPL",
+  "direccion": "Calle 5 de Mayo 210, Puebla",
+  "estatus": "ACTIVO",
+  "password": "Secreta123"
+}
